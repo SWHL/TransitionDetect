@@ -7,6 +7,9 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as functional
+from tqdm import tqdm
+
+from ..utils.logger import logger
 
 
 class TransNetV2(nn.Module):
@@ -143,7 +146,7 @@ class TransNetV2(nn.Module):
                 "install python wrapper by `pip install ffmpeg-python`."
             )
 
-        print("[TransNetV2] Extracting frames from {}".format(video_fn))
+        logger.info(f"Extracting frames from {video_fn}")
         video_stream, err = (
             ffmpeg.input(video_fn)
             .output("pipe:", format="rawvideo", pix_fmt="rgb24", s="48x27", vsync=0)
@@ -178,20 +181,16 @@ class TransNetV2(nn.Module):
                 ptr += 50
                 yield out[np.newaxis]
 
+        pbar = tqdm(total=len(frames), desc="Processing video frames")
         predictions = []
-
         for inp in input_iterator():
             single_frame_pred, all_frames_pred = self.forward(inp)
             predictions.append(
                 (single_frame_pred[0, 25:75, 0], all_frames_pred[0, 25:75, 0])
             )
-
-            print(
-                "\r[TransNetV2] Processing video frames {}/{}".format(
-                    min(len(predictions) * 50, len(frames)), len(frames)
-                ),
-                end="",
-            )
+            processed_frames = min(len(predictions) * 50, len(frames))
+            pbar.update(processed_frames - pbar.n)
+        pbar.close()
 
         single_frame_pred = np.concatenate([single_ for single_, all_ in predictions])
         all_frames_pred = np.concatenate([all_ for single_, all_ in predictions])
@@ -199,7 +198,7 @@ class TransNetV2(nn.Module):
         return (
             single_frame_pred[: len(frames)],
             all_frames_pred[: len(frames)],
-        )  # remove extra padded frames
+        )
 
     @staticmethod
     def predictions_to_scenes(predictions: np.ndarray, threshold: float = 0.2):

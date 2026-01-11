@@ -1,1 +1,5 @@
 ffmpeg-python
+colorlog
+requests
+torch
+PyYAML

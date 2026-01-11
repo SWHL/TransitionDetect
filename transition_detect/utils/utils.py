@@ -1,35 +1,26 @@
 # -*- encoding: utf-8 -*-
 # @Author: SWHL
 # @Contact: liekkaskono@163.com
+import hashlib
 import subprocess
 from pathlib import Path
 from typing import Union
 
-import ffmpeg
-import numpy as np
+
+def get_file_sha256(file_path: Union[str, Path], chunk_size: int = 65536) -> str:
+    with open(file_path, "rb") as file:
+        sha_signature = hashlib.sha256()
+        while True:
+            chunk = file.read(chunk_size)
+            if not chunk:
+                break
+            sha_signature.update(chunk)
+
+    return sha_signature.hexdigest()
 
 
 def mkdir(dir_path):
     Path(dir_path).mkdir(parents=True, exist_ok=True)
-
-
-def get_downsample(video_path):
-    # 注意去掉了-r=fps
-    video_stream, err = (
-        ffmpeg.input(video_path.strip(), accurate_seek=None)  # 精确寻址
-        .output(
-            "pipe:",
-            format="rawvideo",
-            pix_fmt="rgb24",
-            s="48x27",
-            vsync=0,  # 不改变帧时序
-            avoid_negative_ts="make_zero",  # 保持原始帧率模式
-        )
-        .run(quiet=True)
-    )
-
-    video_buffer = np.frombuffer(video_stream, np.uint8).reshape([-1, 27, 48, 3])
-    return video_buffer
 
 
 def trim_video_by_frames(
