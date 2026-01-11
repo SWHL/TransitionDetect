@@ -53,9 +53,10 @@ setuptools.setup(
     license="Apache-2.0",
     include_package_data=True,
     install_requires=read_txt("requirements.txt"),
-    package_dir={"": MODULE_NAME},
-    packages=setuptools.find_namespace_packages(where=MODULE_NAME),
-    package_data={"": ["config.yaml", "*.pth"]},
+    packages=setuptools.find_packages(),
+    package_data={
+        MODULE_NAME: ["config.yaml", "models/*.pth"],
+    },
     keywords=["transition_detect,transnetv2"],
     classifiers=[
         "Programming Language :: Python :: 3.6",
