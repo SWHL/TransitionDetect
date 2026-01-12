@@ -31,7 +31,14 @@ class TransNetV2Inference:
         device = self.get_device(gpu_id)
         self.model.to(device)
 
-    def __call__(self, video_path: Union[str, Path]):
+    def __call__(
+        self,
+        video_path: Union[str, Path],
+        save_video_clips_dir: Union[str, Path, None] = None,
+    ):
+        if not Path(video_path).exists():
+            raise FileExistsError(f"{video_path} does not exist!!")
+
         try:
             video_buffer = self.resize_video(video_path)
         except Exception as e:
@@ -39,10 +46,13 @@ class TransNetV2Inference:
             return TransnetOutput()
 
         try:
-            scenes, predictions = self.run_infer(video_buffer)
+            scenes, predictions = self.pred_shot(video_buffer)
         except Exception as e:
             logger.exception("Model Inference error.")
             return TransnetOutput()
+
+        if save_video_clips_dir is not None:
+            self.extract_video_clips_by_frames(video_path, scenes, save_video_clips_dir)
 
         return TransnetOutput(scenes=scenes, predictions=predictions)
 
@@ -92,7 +102,7 @@ class TransNetV2Inference:
         video_buffer = np.frombuffer(video_stream, np.uint8).reshape([-1, 27, 48, 3])
         return video_buffer
 
-    def run_infer(self, video_buffer: np.ndarray):
+    def pred_shot(self, video_buffer: np.ndarray):
         single_frame_preds, all_frame_preds = self.model.predict_frames(video_buffer)
         predictions = np.stack([single_frame_preds, all_frame_preds], 1)
         scenes = self.model.predictions_to_scenes(single_frame_preds)
@@ -113,7 +123,7 @@ class TransNetV2Inference:
         save_video_dir = output_dir / Path(video_path).stem
         mkdir(save_video_dir)
 
-        for start_frame, end_frame in tqdm(frame_ranges, desc="extract video clips"):
+        for start_frame, end_frame in tqdm(frame_ranges, desc="Extract video clips"):
             save_video_path = save_video_dir / f"{start_frame}_{end_frame}.mp4"
             trim_video_by_frames(video_path, save_video_path, start_frame, end_frame)
 

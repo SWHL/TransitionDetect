@@ -70,7 +70,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.14",
     ],
     python_requires=">=3.6,<4",
-    # entry_points={
-    #     "console_scripts": [f"{MODULE_NAME}={MODULE_NAME}.main:main"],
-    # },
+    entry_points={
+        "console_scripts": [f"{MODULE_NAME}={MODULE_NAME}.main:main"],
+    },
 )
