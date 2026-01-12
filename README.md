@@ -1,8 +1,23 @@
-# Transition Detect
+<div align="center">
+    <h1>Transition Detect</h1>
+<div>&nbsp;</div>
+<div align="center">
+    <b><font size="4"><i>基于 TransNetV2 的视频转场检测和场景分割工具</i></font></b>
+</div>
+<div>&nbsp;</div>
 
-基于 TransNetV2 的视频转场检测和场景分割工具。
+<a href=""><img src="https://img.shields.io/badge/Python->=3.6-aff.svg"></a>
+<a href=""><img src="https://img.shields.io/badge/OS-Linux%2C%20Win%2C%20Mac-pink.svg"></a>
+<a href="https://github.com/SWHL/TransitionDetect/graphs/contributors"><img src="https://img.shields.io/github/contributors/SWHL/TransitionDetect?color=9ea"></a>
+<a href="https://pepy.tech/project/transition_detect"><img src="https://static.pepy.tech/personalized-badge/transition_detect?period=total&units=abbreviation&left_color=grey&right_color=blue&left_text=Download"></a>
+<a href="https://pypi.org/project/transition_detect/"><img alt="PyPI" src="https://img.shields.io/pypi/v/transition_detect"></a>
+<a href="https://github.com/SWHL/TransitionDetect/stargazers"><img src="https://img.shields.io/github/stars/SWHL/TransitionDetect?color=ccf"></a>
+<a href="https://semver.org/"><img alt="SemVer2.0" src="https://img.shields.io/badge/SemVer-2.0-brightgreen"></a>
+<a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 
-## 功能特性
+</div>
+
+## 简介
 
 - 🎬 **智能转场检测**：使用 TransNetV2 深度学习模型自动检测视频中的场景转换点
 - ✂️ **自动视频分割**：根据检测到的转场点自动将视频分割成多个场景片段
@@ -110,7 +125,7 @@ print("场景列表:", result.scenes)
 
 ## 项目结构
 
-```
+```text
 TransitionDetect/
 ├── transition_detect/          # 主包目录
 │   ├── main.py                 # 命令行入口
@@ -134,14 +149,18 @@ TransitionDetect/
 
 Apache-2.0 License
 
-## 作者
+## 贡献者
 
-SWHL
+<p align="left">
+  <a href="https://github.com/SWHL/TransitionDetect/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=SWHL/TransitionDetect&max=400&columns=10" width="60%"/>
+  </a>
+</p>
 
-## 相关链接
+## 参考链接
 
-- GitHub: <https://github.com/SWHL/TransitionDetect>
-- PyPI: <https://pypi.org/project/transition_detect/>
+- [TransNetV2](https://github.com/soCzech/TransNetV2)
+- [transnetv2-pytorch](https://pypi.org/project/transnetv2-pytorch/)
 
 ## 致谢
 
