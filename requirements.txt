@@ -3,3 +3,5 @@ colorlog
 requests
 torch
 PyYAML
+numpy
+tqdm
