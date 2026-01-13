@@ -2,9 +2,9 @@
   <div align="center">
     <h1><b>✂️🎬 Transition Detect</b></h1>
   </div>
-  <b><font size="4"><i>基于 TransNetV2 的视频转场检测和场景分割工具</i></font></b>
+  <b><font size="3"><i>基于 TransNetV2 的视频转场检测和场景分割工具</i></font></b>
 
-<br/>
+ <div style="margin: 1.0em 0;"></div>
 
 <a href=""><img src="https://img.shields.io/badge/Python->=3.6-aff.svg"></a>
 <a href=""><img src="https://img.shields.io/badge/OS-Linux%2C%20Win%2C%20Mac-pink.svg"></a>
