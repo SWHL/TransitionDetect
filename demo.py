@@ -8,7 +8,6 @@ from transition_detect.transnetv2 import TransNetV2Inference
 model = TransNetV2Inference()
 
 video_path = "tests/test_files/demo.mp4"
-output_dir = Path("outputs")
-result = model(video_path, save_video_clips_dir=output_dir)
+result = model(video_path, save_video_clips_dir="outputs")
 
 print("ok")

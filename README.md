@@ -1,10 +1,10 @@
 <div align="center">
-    <h1>Transition Detect</h1>
-<div>&nbsp;</div>
-<div align="center">
-    <b><font size="4"><i>基于 TransNetV2 的视频转场检测和场景分割工具</i></font></b>
-</div>
-<div>&nbsp;</div>
+  <div align="center">
+    <h1><b>✂️🎬 Transition Detect</b></h1>
+  </div>
+  <b><font size="4"><i>基于 TransNetV2 的视频转场检测和场景分割工具</i></font></b>
+
+<br/>
 
 <a href=""><img src="https://img.shields.io/badge/Python->=3.6-aff.svg"></a>
 <a href=""><img src="https://img.shields.io/badge/OS-Linux%2C%20Win%2C%20Mac-pink.svg"></a>
@@ -46,7 +46,7 @@ pip install -e .
 - Python >= 3.6
 - PyTorch
 - ffmpeg-python
-- 其他依赖见 `requirements.txt`
+- 其他依赖见 [`requirements.txt`](./requirements.txt)
 
 **注意**：使用前请确保系统已安装 [FFmpeg](https://ffmpeg.org/)。
 
@@ -79,7 +79,7 @@ transition_detect video.mp4 --save_clips_dir ./outputs
 from pathlib import Path
 from transition_detect.transnetv2 import TransNetV2Inference
 
-# 初始化模型（首次使用会自动下载模型）
+# 初始化模型（pypi安装时，自带模型）
 model = TransNetV2Inference()
 
 # 检测转场点（不保存视频片段）
@@ -116,8 +116,7 @@ from transition_detect.transnetv2 import TransNetV2Inference
 model = TransNetV2Inference()
 
 video_path = "tests/test_files/demo.mp4"
-output_dir = Path("outputs")
-result = model(video_path, save_video_clips_dir=output_dir)
+result = model(video_path, save_video_clips_dir="outputs")
 
 print("检测到的场景数量:", len(result.scenes))
 print("场景列表:", result.scenes)
@@ -153,7 +152,7 @@ Apache-2.0 License
 
 <p align="left">
   <a href="https://github.com/SWHL/TransitionDetect/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=SWHL/TransitionDetect&max=400&columns=10" width="60%"/>
+    <img src="https://contrib.rocks/image?repo=SWHL/TransitionDetect&max=400&columns=10" width="5%"/>
   </a>
 </p>
 
